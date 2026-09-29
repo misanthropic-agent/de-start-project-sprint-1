@@ -9,5 +9,17 @@ WHEN MATCHED THEN
              craftsman_birthday = src.craftsman_birthday,
              load_dttm = current_timestamp
 WHEN NOT MATCHED THEN
-  INSERT (craftsman_name, craftsman_address, craftsman_birthday, craftsman_email, load_dttm)
-  VALUES (src.craftsman_name, src.craftsman_address, src.craftsman_birthday, src.craftsman_email, current_timestamp);
+  INSERT (
+    craftsman_name,
+    craftsman_address,
+    craftsman_birthday,
+    craftsman_email,
+    load_dttm
+    )
+  VALUES (
+    src.craftsman_name,
+    src.craftsman_address,
+    src.craftsman_birthday,
+    src.craftsman_email,
+    current_timestamp
+    );
