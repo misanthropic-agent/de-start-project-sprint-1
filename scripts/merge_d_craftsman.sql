@@ -10,4 +10,4 @@ WHEN MATCHED THEN
              load_dttm = current_timestamp
 WHEN NOT MATCHED THEN
   INSERT (craftsman_name, craftsman_address, craftsman_birthday, craftsman_email, load_dttm)
-  VALUES (srccraftsman_name, srccraftsman_address, srccraftsman_birthday, srccraftsman_email, current_timestamp);
+  VALUES (src.craftsman_name, src.craftsman_address, src.craftsman_birthday, src.craftsman_email, current_timestamp);
