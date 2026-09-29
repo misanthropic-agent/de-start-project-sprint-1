@@ -1,5 +1,5 @@
 MERGE INTO dwh.d_craftsman AS trg
-USING (SELECT 
+USING (SELECT DISTINCT
     craftsman_name, craftsman_address, craftsman_birthday, craftsman_email
     FROM tmp_ext_src
     ) as src
