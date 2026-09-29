@@ -8,8 +8,8 @@ WHEN MATCHED THEN
   UPDATE SET craftsman_address = src.craftsman_address,
              craftsman_birthday = src.craftsman_birthday,
              load_dttm = current_timestamp
-WHEN NOT MATCHED THEN
-  INSERT (
+WHEN NOT MATCHED
+  THEN INSERT (
     craftsman_name,
     craftsman_address,
     craftsman_birthday,
