@@ -19,8 +19,7 @@ SELECT
   c.customer_name,
   c.customer_address,
   c.customer_birthday,
-  c.customer_email,
+  c.customer_email
 FROM external_source.craft_products_orders o
 JOIN external_source.customers c ON c.customer_id = o.customer_id;
-SELECT COUNT(*) FROM tmp_ext_src;
 
