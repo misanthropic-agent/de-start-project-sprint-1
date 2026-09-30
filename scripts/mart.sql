@@ -18,3 +18,20 @@
 --количество незавершённых заказов за месяц;
 --отчётный период, год и месяц.
 
+SELECT 
+  o.order_id,
+  o.customer_id,
+  o.craftsman_id,
+  cr.customer_name,
+  cr.customer_address,
+  cr.customer_birthday,
+  cr.customer_email,
+  SUM(pr.product_price) OVER (PARTITION BY o.customer_id) as agg_sum_by_client,
+  (SUM(pr.product_price) OVER (PARTITION BY o.customer_id, o.order_created_date)) * 0.1 
+      as agg_revenue_by_client,
+  COUNT(*) OVER (PARTITION BY o.customer_id, o.order_created_date) as agg_count_by_client
+  
+FROM dwh.f_order o
+JOIN dwh.d_craftsman cm ON cm.craftsman_id = o.craftsman_id
+JOIN dwh.d_customer cr ON cr.customer_id = o.customer_id
+JOIN dwh.d_product pr ON pr.product_id = o.product_id
