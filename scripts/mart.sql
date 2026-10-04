@@ -44,3 +44,30 @@ WITH agg_customer AS (
   JOIN dwh.d_product pr ON pr.product_id = o.product_id
   GROUP BY o.customer_id, DATE_TRUNC('month', o.order_created_date)
 )
+category_counts AS (
+  SELECT
+    customer_id,
+    report_period,
+    product_type,
+    COUNT(*) AS cnt
+  FROM base
+  GROUP BY customer_id, report_period, product_type
+)
+top_category AS (
+  SELECT
+    customer_id,
+    report_period,
+    product_type AS top_product_category
+  FROM (
+    SELECT
+      customer_id,
+      report_period,
+      product_type,
+      row_number() OVER (
+        PARTITION BY customer_id, report_period
+        ORDER BY cnt DESC, product_type
+      ) AS rn
+    FROM category_counts
+  ) t
+  WHERE rn = 1
+)
