@@ -1,3 +1,4 @@
-UPDATE dwh.f_order o
-SET o.order_status = 'in-progress'
-WHERE o.order_status = 'in progress'
+UPDATE dwh.f_order
+SET order_status = 'in-progress',
+    load_dttm = CURRENT_TIMESTAMP
+WHERE order_status = 'in progress';
