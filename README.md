@@ -14,12 +14,22 @@
 `ddl_mart.sql`   DDL витрины `dwh.customer_report_datamart` и таблицы загрузок `dwh.load_dates_customer_report_datamart`    
 `incremental_update.sql`   Инкрементальное обновление витрины  
 
-## Как работает инкремент
+## Запуск
+1. Загрузка источника в DWH:
+```
+    tmp_ext4d.sql
+    merge_d_craftsman.sql
+    merge_d_customer.sql
+    merge_d_product.sql
+    tmp_ext4fact.sql
+    merge_f.sql
+```
+2. Создание отчета:
+```
+    ddl_mart.sql
+    incremental_update.sql
+```
 
-- Таблица `dwh.load_dates_customer_report_datamart` хранит дату последней загрузки (`load_dttm`).
-- Скрипт находит пары «заказчик + месяц», у которых `load_dttm` в факте или в любом из измерений новее последней загрузки.
-- Для этих пар показатели пересчитываются по всем заказам; новые строки вставляются, существующие обновляются (`INSERT ... ON CONFLICT (customer_id, report_period) DO UPDATE`).
-- Дата загрузки фиксируется, только если в дельте были данные.
 
 ## Статус in[-, ]progress
 
